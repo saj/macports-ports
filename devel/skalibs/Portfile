@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+
+name                skalibs
+version             2.10.0.3
+revision            0
+categories          devel
+platforms           darwin
+license             ISC
+maintainers         nomaintainer
+description         general-purpose libraries for C system programming
+
+long_description \
+    skalibs is a package centralizing the free software / open source \
+    C development files used for building all software at skarnet.org: \
+    it contains essentially general-purpose libraries. skalibs can \
+    also be used as a sound basic start for C development. There are a \
+    lot of general-purpose libraries out there\; but if your main goal \
+    is to produce small and secure C code with a focus on system \
+    programming, skalibs might be for you.
+
+homepage            https://skarnet.org/software/skalibs/
+master_sites        https://skarnet.org/software/skalibs/
+
+checksums           rmd160  9ba5fa4b56d9d5d233cd86060df5f8c670d0d008 \
+                    sha256  b780b0ae650dda0c3ec5f8975174998af2d24c2a2e2be669b1bab46e73b1464d \
+                    size    232814
+
+configure.args      --disable-shared
