@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+name                py-yamllint
+version             1.26.3
+revision            0
+categories-append   textproc
+platforms           darwin
+license             GPL-3
+supported_archs     noarch
+maintainers         nomaintainer
+description         a linter for YAML files
+
+long_description \
+    yamllint does not only check for syntax validity, but for \
+    weirdnesses like key repetition and cosmetic problems such as \
+    lines length, trailing spaces, indentation, etc.
+
+homepage            https://yamllint.readthedocs.io/
+
+checksums           rmd160  6a062445b1b516e89c898729ece7fbd9054cd391 \
+                    sha256  3934dcde484374596d6b52d8db412929a169f6d9e52e20f9ade5bf3523d9b96e \
+                    size    126746
+
+python.versions     35 36 37 38 39
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools_scm
+
+    depends_lib-append  port:py${python.version}-setuptools \
+                        port:py${python.version}-pathspec \
+                        port:py${python.version}-yaml
+
+    depends_run-append  port:yamllint_select
+
+    select.group        yamllint
+    select.file         ${filespath}/yamllint${python.version}
+
+    livecheck.type      none
+}
