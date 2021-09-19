@@ -7,6 +7,7 @@ py37-yamllint 3297
 py38-yamllint 3903
 py39-yamllint 4509
 yamllint_select 5115
-s6 5533
-snooze 6359
-uwsgi-py27 6815
+bench 5533
+s6 5973
+snooze 6799
+uwsgi-py27 7255
