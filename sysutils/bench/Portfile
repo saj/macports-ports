@@ -5,7 +5,7 @@ PortGroup           github 1.0
 PortGroup           haskell_stack 1.0
 
 github.setup        Gabriel439 bench 1.0.9
-revision            0
+revision            1
 categories          sysutils haskell
 platforms           darwin
 license             BSD
@@ -30,9 +30,9 @@ patchfiles          update-stack-yaml.patch
 configure.ccache    no
 
 post-destroot {
-    xinstall -d ${destroot}${prefix}/share/doc
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
     xinstall -m 0644 -W ${worksrcpath} \
         LICENSE \
         README.md \
-        ${destroot}${prefix}/share/doc
+        ${destroot}${prefix}/share/doc/${name}
 }
