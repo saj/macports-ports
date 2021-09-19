@@ -2,6 +2,7 @@
 
 PortSystem          1.0
 PortGroup           github 1.0
+PortGroup           makefile 1.0
 
 github.setup        leahneukirchen snooze 0.5 v
 github.tarball_from archive
@@ -17,12 +18,8 @@ long_description \
     running a command. Together with a service supervision system such \
     as runit, this can be used to replace cron(8).
 
-homepage            https://github.com/leahneukirchen/snooze
-
 checksums           rmd160  e1113ffb0d056c2dc4dcfb100d33ee57fce484f0 \
                     sha256  d63fde85d9333188bed5996baabd833eaa00842ce117443ffbf8719c094be414 \
                     size    8008
 
-use_configure       no
-
-destroot.destdir    DESTDIR=${destroot} PREFIX=${prefix}
+patchfiles          patch-Makefile.diff
