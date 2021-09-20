@@ -9,5 +9,4 @@ py39-yamllint 4509
 yamllint_select 5115
 bench 5533
 s6 5973
-snooze 6818
-uwsgi-py27 7293
+uwsgi-py27 6818
