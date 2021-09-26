@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                skalibs
-version             2.10.0.3
+version             2.11.0.0
 revision            0
 categories          devel
 platforms           darwin
@@ -21,10 +21,42 @@ long_description \
     programming, skalibs might be for you.
 
 homepage            https://skarnet.org/software/skalibs/
-master_sites        https://skarnet.org/software/skalibs/
+master_sites        ${homepage}
 
-checksums           rmd160  9ba5fa4b56d9d5d233cd86060df5f8c670d0d008 \
-                    sha256  b780b0ae650dda0c3ec5f8975174998af2d24c2a2e2be669b1bab46e73b1464d \
-                    size    232814
+checksums           rmd160  f033bb3054865561f86edc93c0d2f265e6a72829 \
+                    sha256  98dfc8a02a333f5b12d069d84471c0d51ab5a421c4292963048b3652563d34d9 \
+                    size    216201
 
 configure.args      --disable-shared
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} \
+        AUTHORS \
+        COPYING \
+        NEWS \
+        README \
+        README.macos \
+        ${destroot}${docdir}
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/*.html] \
+        ${destroot}${docdir}
+    xinstall -d ${destroot}${docdir}/libdatastruct
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libdatastruct/*.html] \
+        ${destroot}${docdir}/libdatastruct
+    xinstall -d ${destroot}${docdir}/libposixplz
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libposixplz/*.html] \
+        ${destroot}${docdir}/libposixplz
+    xinstall -d ${destroot}${docdir}/librandom
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/librandom/*.html] \
+        ${destroot}${docdir}/librandom
+    xinstall -d ${destroot}${docdir}/libstdcrypto
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libstdcrypto/*.html] \
+        ${destroot}${docdir}/libstdcrypto
+    xinstall -d ${destroot}${docdir}/libstddjb
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libstddjb/*.html] \
+        ${destroot}${docdir}/libstddjb
+    xinstall -d ${destroot}${docdir}/libunixonacid
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libunixonacid/*.html] \
+        ${destroot}${docdir}/libunixonacid
+}

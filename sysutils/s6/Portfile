@@ -3,8 +3,8 @@
 PortSystem          1.0
 
 name                s6
-version             2.10.0.3
-revision            1
+version             2.11.0.0
+revision            0
 categories          sysutils
 platforms           darwin
 license             ISC
@@ -22,108 +22,47 @@ long_description \
     a very small amount of code.
 
 homepage            https://skarnet.org/software/s6/
-master_sites        https://skarnet.org/software/s6/
+master_sites        ${homepage}
 
-depends_build       port:execline port:skalibs
+depends_build       port:execline \
+                    port:skalibs
 depends_run         port:execline
 
-checksums           rmd160  856a75907c5488e3b7da845249d6c171bc5e92fc \
-                    sha256  1d21373151704150df0e8ed199f097f6ee5d2befb9a68aca4f20f3862e5d8757 \
-                    size    218797
+checksums           rmd160  3a26359b062b1040cadb1e3408cf779057fee7a1 \
+                    sha256  c545e4e18cd98e7fdbef84566e212276e44630f25de3e7891a3c58e83a9074a8 \
+                    size    227693
 
 configure.args      --disable-shared \
                     --with-lib=${prefix}/lib/execline \
                     --with-lib=${prefix}/lib/skalibs
 
 post-destroot {
-    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
     xinstall -m 0644 -W ${worksrcpath} \
         AUTHORS \
         COPYING \
         NEWS \
         README \
         README.macos \
-        ${destroot}${prefix}/share/doc/${name}
-    xinstall -m 0644 -W ${worksrcpath}/doc \
-        fifodir.html \
-        ftrig.html \
-        index.html \
-        localservice.html \
-        notifywhenup.html \
-        overview.html \
-        s6-accessrules-cdb-from-fs.html \
-        s6-accessrules-fs-from-cdb.html \
-        s6-applyuidgid.html \
-        s6-cleanfifodir.html \
-        s6-connlimit.html \
-        s6-envdir.html \
-        s6-envuidgid.html \
-        s6-fdholder-daemon.html \
-        s6-fdholder-delete.html \
-        s6-fdholder-errorcodes.html \
-        s6-fdholder-getdump.html \
-        s6-fdholder-list.html \
-        s6-fdholder-retrieve.html \
-        s6-fdholder-setdump.html \
-        s6-fdholder-store.html \
-        s6-fdholder-transferdump.html \
-        s6-fdholderd.html \
-        s6-fghack.html \
-        s6-ftrig-listen.html \
-        s6-ftrig-listen1.html \
-        s6-ftrig-notify.html \
-        s6-ftrig-wait.html \
-        s6-ioconnect.html \
-        s6-ipcclient.html \
-        s6-ipcserver-access.html \
-        s6-ipcserver-socketbinder.html \
-        s6-ipcserver.html \
-        s6-ipcserverd.html \
-        s6-log.html \
-        s6-mkfifodir.html \
-        s6-notifyoncheck.html \
-        s6-permafailon.html \
-        s6-setlock.html \
-        s6-setsid.html \
-        s6-setuidgid.html \
-        s6-softlimit.html \
-        s6-sudo.html \
-        s6-sudoc.html \
-        s6-sudod.html \
-        s6-supervise.html \
-        s6-svc.html \
-        s6-svdt-clear.html \
-        s6-svdt.html \
-        s6-svlisten.html \
-        s6-svlisten1.html \
-        s6-svok.html \
-        s6-svperms.html \
-        s6-svscan-1.html \
-        s6-svscan-not-1.html \
-        s6-svscan.html \
-        s6-svscanctl.html \
-        s6-svstat.html \
-        s6-svwait.html \
-        s6-tai64n.html \
-        s6-tai64nlocal.html \
-        s6-usertree-maker.html \
-        scandir.html \
-        servicedir.html \
-        socket-activation.html \
-        ucspilogd.html \
-        upgrade.html \
-        why.html \
-        ${destroot}${prefix}/share/doc/${name}
-    xinstall -d ${destroot}${prefix}/share/doc/${name}/libs6
-    xinstall -m 0644 -W ${worksrcpath}/doc/libs6 \
-        accessrules.html \
-        ftrigr.html \
-        ftrigw.html \
-        index.html \
-        s6-fdholder.html \
-        s6-ftrigrd.html \
-        s6lock.html \
-        s6lockd-helper.html \
-        s6lockd.html \
-        ${destroot}${prefix}/share/doc/${name}/libs6
+        ${destroot}${docdir}
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/*.html] \
+        ${destroot}${docdir}
+    xinstall -d ${destroot}${docdir}/libs6
+    xinstall -m 0644 {*}[glob ${worksrcpath}/doc/libs6/*.html] \
+        ${destroot}${docdir}/libs6
+
+    xinstall -m 755 -d ${destroot}${prefix}/var/s6-svscan/service
 }
+
+destroot.keepdirs   ${destroot}${prefix}/var/s6-svscan/service
+
+post-activate {
+    ui_msg "A startupitem for s6-svscan has been created."
+    ui_msg "The startupitem assumes a scandir of"
+    ui_msg "${prefix}/var/s6-svscan/service"
+}
+
+startupitem.create       yes
+startupitem.name         s6-svscan
+startupitem.executable   ${prefix}/bin/s6-svscan ${prefix}/var/s6-svscan/service
