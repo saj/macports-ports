@@ -1,9 +1,0 @@
-py-yamllint 0
-py35-yamllint 559
-py36-yamllint 1165
-py37-yamllint 1771
-py38-yamllint 2377
-py39-yamllint 2983
-yamllint_select 3589
-bench 4007
-uwsgi-py27 4447
