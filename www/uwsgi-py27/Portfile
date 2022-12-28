@@ -7,7 +7,7 @@
 PortSystem          1.0
 
 name                uwsgi-py27
-version             2.0.19.1
+version             2.0.21
 revision            0
 categories          www
 platforms           darwin
@@ -23,14 +23,15 @@ long_description \
     style.
 
 homepage            https://github.com/unbit/uwsgi/
-master_sites        https://projects.unbit.it/downloads/
+# 2.0.21 not available on projects.unbit.it
+master_sites        https://files.pythonhosted.org/packages/b3/8e/b4fb9f793745afd6afcc0d2443d5626132e5d3540de98f28a8b8f5c753f9/
 distname            uwsgi-${version}
 
 depends_build       port:gettext port:python27
 
-checksums           rmd160  88f71d5d5442f14aa18d26999d7dd5ab3399ef21 \
-                    sha256  56be307f3bfcf6cc074f4354de6403778d7ec3e44addac896e26ffb3c4d9a608 \
-                    size    811149
+checksums           rmd160  6ab0fdc710bcca1836966d601d39c64b50db9181 \
+                    sha256  35a30d83791329429bc04fe44183ce4ab512fcf6968070a7bfba42fc5a0552a9 \
+                    size    808494
 
 use_configure       no
 
